@@ -34,6 +34,9 @@ module.exports = {
 			},
 		],
 	},
+	resolve: {
+		extensions: ['.ts', '.js' ],
+	},
 	plugins: [
     new HtmlWebpackPlugin({
       template: './src/index.html',

@@ -8,7 +8,7 @@ module.exports = {
     hot: true,
   },
 	devtool: 'source-map',
-  entry: ['@babel/polyfill', './src/app.ts'],
+  entry: ['@babel/polyfill', './src/index.ts'],
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist'),

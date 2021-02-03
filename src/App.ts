@@ -5,9 +5,9 @@ import Button from './components/Button';
 
 export default class App {
 	readonly $app: Element;
-	readonly $board: Board;
-	readonly $score: Score;
-	readonly $button: Button;
+	readonly board: Board;
+	readonly score: Score;
+	readonly button: Button;
 	isPlaying: boolean;
 
 	constructor($target: Element) {
@@ -15,9 +15,9 @@ export default class App {
 		this.$app.className = 'main';
 		$target.append(this.$app);
 
-		this.$board = new Board(this.$app);
-		this.$score = new Score(this.$app);
-		this.$button = new Button({
+		this.board = new Board(this.$app);
+		this.score = new Score(this.$app);
+		this.button = new Button({
 			$target: this.$app,
 			onClick: this.onClick.bind(this)
 		});
@@ -25,7 +25,7 @@ export default class App {
 
 	onClick() {
 		this.isPlaying = !this.isPlaying;
-		this.$button.render(this.isPlaying);
+		this.button.render(this.isPlaying);
 		
 		if(this.isPlaying) {
 			// TODO: Board Piece 채워지기 시작

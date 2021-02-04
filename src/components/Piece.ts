@@ -1,5 +1,6 @@
 import { colors, shapes } from '../utils/pieces';
 import { getRandomNumber } from '../utils/utils'; 
+import { KeyType } from './Board';
 
 interface pieceType {
 	context: CanvasRenderingContext2D;
@@ -34,5 +35,11 @@ export default class Piece {
 				}
 			})
 		})
+	}
+	
+	move(KEY: KeyType) {
+		if(KEY === KeyType.ArrowLeft) this.position = { ...this.position, x: this.position.x - 1 };
+		else if(KEY === KeyType.ArrowRight) this.position = { ...this.position, x: this.position.x + 1 };
+		else if(KEY === KeyType.ArrowDown) this.position = { ...this.position, y: this.position.y + 1 };
 	}
 }

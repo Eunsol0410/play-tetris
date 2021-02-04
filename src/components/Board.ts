@@ -3,6 +3,15 @@ import Piece from './Piece';
 const ROWS = 20;
 const COLS = 10;
 const LEN = 32;
+
+export enum KeyType {
+	ArrowLeft = "ArrowLeft",
+	ArrowRight = "ArrowRight",
+	ArrowDown = "ArrowDown",
+	ArrowUp = "ArrowUp",
+	Space = "Space"
+}
+
 export default class Board {
 	readonly $board: HTMLCanvasElement;
 	readonly context: CanvasRenderingContext2D;
@@ -13,6 +22,8 @@ export default class Board {
 		this.$board = document.createElement('canvas');
 		this.$board.className = 'board-container';
 		$target.append(this.$board);
+		document.addEventListener('keydown', this.onKeyDown.bind(this));
+
 		this.context = this.$board.getContext('2d');
 		this.context.scale(LEN, LEN/4);
 
@@ -34,4 +45,18 @@ export default class Board {
 			context: this.context
 		})
 	}
+
+	onKeyDown(e: KeyboardEvent) {
+		if(!(e.code in KeyType)) return;
+		e.stopPropagation();
+			
+		if(e.code === KeyType.ArrowUp) {
+			// TODO: 조각 회전
+		} else if (e.code === KeyType.Space) {
+			// TODO: 조각 수직 이동
+		} else {
+			this.clearBoard();
+			this.piece.move(e.code as KeyType);
+			this.piece.draw();
+		}
 }

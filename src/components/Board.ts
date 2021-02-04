@@ -51,7 +51,9 @@ export default class Board {
 		e.stopPropagation();
 			
 		if(e.code === KeyType.ArrowUp) {
-			// TODO: 조각 회전
+			this.clearBoard();
+			this.piece.rotateRight();
+			this.piece.draw();
 		} else if (e.code === KeyType.Space) {
 			// TODO: 조각 수직 이동
 		} else {

@@ -42,4 +42,15 @@ export default class Piece {
 		else if(KEY === KeyType.ArrowRight) this.position = { ...this.position, x: this.position.x + 1 };
 		else if(KEY === KeyType.ArrowDown) this.position = { ...this.position, y: this.position.y + 1 };
 	}
+
+	rotateRight() {
+		const length = this.shape.length;
+		const next = Array.from({length}, () => new Array(length).fill(0));
+		for(let i=0; i<length; i++) {
+			for(let j=0; j<length; j++) {
+				next[length - j - 1][i] = this.shape[i][j];
+			}
+		}
+		this.shape = next;
+	}
 }

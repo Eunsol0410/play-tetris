@@ -1,6 +1,6 @@
 interface boardType {
 	$target: Element;
-	onClick: () => {}
+	onClick: () => {};
 }
 
 export default class Board {

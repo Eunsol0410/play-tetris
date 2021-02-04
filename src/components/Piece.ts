@@ -1,12 +1,13 @@
 import { colors, shapes } from '../utils/pieces';
 import { getRandomNumber } from '../utils/utils'; 
-import { KeyType } from './Board';
+import { KeyType, ROWS, COLS } from './Board';
 
 interface pieceType {
 	context: CanvasRenderingContext2D;
+	isEmpty: (p:positionType) => boolean;
 }
 
-interface positionType {
+export interface positionType {
 	x: number;
 	y: number;
 }
@@ -16,16 +17,18 @@ export default class Piece {
 	color: string; 
 	shape: number[][]; 
 	position: positionType;
+	isEmpty: (p:positionType) => boolean;
 
-	constructor({ context }: pieceType) {
+	constructor({ context, isEmpty }: pieceType) {
 		this.context = context;
 		const type = getRandomNumber(shapes.length);
 		this.color = colors[type];
 		this.shape = shapes[type];
 		this.position = { x: 3, y: 0 };
+		this.isEmpty = isEmpty;
 		this.draw();
 	}
-
+	
 	draw() {
 		this.context.fillStyle = this.color;
 		this.shape.forEach((line, r) => {
@@ -38,9 +41,12 @@ export default class Piece {
 	}
 	
 	move(KEY: KeyType) {
-		if(KEY === KeyType.ArrowLeft) this.position = { ...this.position, x: this.position.x - 1 };
-		else if(KEY === KeyType.ArrowRight) this.position = { ...this.position, x: this.position.x + 1 };
-		else if(KEY === KeyType.ArrowDown) this.position = { ...this.position, y: this.position.y + 1 };
+		let next;
+		if(KEY === KeyType.ArrowLeft) next = { ...this.position, x: this.position.x - 1 };
+		else if(KEY === KeyType.ArrowRight) next = { ...this.position, x: this.position.x + 1 };
+		else if(KEY === KeyType.ArrowDown) next = { ...this.position, y: this.position.y + 1 };
+		
+		if(next && this.isValid(next, this.shape)) this.position = next;
 	}
 
 	rotateRight() {
@@ -51,6 +57,24 @@ export default class Piece {
 				next[length - j - 1][i] = this.shape[i][j];
 			}
 		}
-		this.shape = next;
+
+		if(this.isValid(this.position, next)) this.shape = next;
+	}
+
+	isValid(position: positionType, shape: number[][]) {
+		for(let r=0; r<shape.length; r++) {
+			for(let c=0; c<shape.length; c++) {
+				if(shape[r][c] > 0) {
+					const p = { x: position.x + c, y: position.y + r };
+					if(this.isOutOfRange(p) || !this.isEmpty(p)) return false;
+				}
+			}
+		}
+		
+		return true;
+	}
+
+	isOutOfRange(p: positionType) {
+		return p.x < 0 || p.y < 0 || p.x >= COLS || p.y >= ROWS; 
 	}
 }

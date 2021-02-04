@@ -42,7 +42,8 @@ export default class Board {
 
 	play() {
 		this.piece = new Piece({
-			context: this.context
+			context: this.context,
+			isEmpty: this.isEmpty.bind(this)
 		})
 	}
 
@@ -61,4 +62,5 @@ export default class Board {
 			this.piece.move(e.code as KeyType);
 			this.piece.draw();
 		}
+}
 }

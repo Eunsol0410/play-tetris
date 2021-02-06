@@ -74,6 +74,18 @@ export default class Board {
 		this.timer = 0;
 	}
 
+
+	fixPiece(shape: number[][], position: positionType) {
+		shape.forEach((line, r) => {
+			line.forEach((type, c) => {
+				if(type > 0) {
+					this.board[position.y + r][position.x + c] = type;
+				}
+			})
+		})
+		this.addPiece();
+	}
+
 	clearBoard() {
 		this.context.clearRect(0, 0, this.context.canvas.width, this.context.canvas.height);
 	}

@@ -5,6 +5,7 @@ import { KeyType, ROWS, COLS } from './Board';
 interface pieceType {
 	context: CanvasRenderingContext2D;
 	isEmpty: (p:positionType) => boolean;
+	fixPiece: (shape: number[][], position: positionType) => {};
 }
 
 export interface positionType {
@@ -18,14 +19,16 @@ export default class Piece {
 	shape: number[][]; 
 	position: positionType;
 	isEmpty: (p:positionType) => boolean;
+	fixPiece: (shape: number[][], position: positionType) => {};
 
-	constructor({ context, isEmpty }: pieceType) {
+	constructor({ context, isEmpty, fixPiece }: pieceType) {
 		this.context = context;
 		const idx = getRandomNumber(shapes.length);
 		this.color = colors[idx+1];
 		this.shape = shapes[idx];
 		this.position = { x: 3, y: 0 };
 		this.isEmpty = isEmpty;
+		this.fixPiece = fixPiece;
 		this.draw();
 	}
 	
@@ -47,6 +50,7 @@ export default class Piece {
 		else if(KEY === KeyType.ArrowDown) next = { ...this.position, y: this.position.y + 1 };
 		
 		if(next && this.isValid(next, this.shape)) this.position = next;
+		else if(KEY === KeyType.ArrowDown) this.fixPiece(this.shape, this.position);
 	}
 
 	rotateRight() {
@@ -70,7 +74,7 @@ export default class Piece {
 				}
 			}
 		}
-		
+
 		return true;
 	}
 

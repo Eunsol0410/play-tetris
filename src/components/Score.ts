@@ -1,31 +1,33 @@
+import { scoreState } from '../App';
+
+interface scoreType {
+	$target: Element;
+	score: number;
+	lines: number;
+	level: number;
+}
+
 export default class Score {
 	readonly $score: Element;
-	score: Number;
-	lines: Number;
-	level: Number;
+	score: number;
+	lines: number;
+	level: number;
 
-	constructor($target: Element) {
+	constructor({ $target, score, lines, level }: scoreType) {
 		this.$score = document.createElement('div');
 		this.$score.className = 'score-container';
 		$target.append(this.$score);
 
-		this.init();
-		this.render();
+		this.render({score, lines, level});
 	}
 
-	init() {
-		this.score = 0;
-		this.lines = 0;
-		this.level = 0;
-	}
-
-	render() {
+	render({ score, lines, level }: scoreState) {
 		this.$score.innerHTML = `
 			<h1 class="title">TETRIS</h1>
 			<div class="score-container">
-				<p>Score: ${this.score}</p>
-				<p>Lines: ${this.lines}</p>
-				<p>Level: ${this.level}</p>
+				<p>Score: ${score}</p>
+				<p>Lines: ${lines}</p>
+				<p>Level: ${level}</p>
 			</div>
 		`
 	}

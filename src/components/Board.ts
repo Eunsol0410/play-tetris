@@ -15,7 +15,7 @@ export enum KeyType {
 export default class Board {
 	readonly $board: HTMLCanvasElement;
 	readonly context: CanvasRenderingContext2D;
-	piece: Piece;
+	pieceObj: Piece;
 	board: number[][];
 
 	constructor($target: Element) {
@@ -32,7 +32,7 @@ export default class Board {
 
 	init() {
 		this.board = Array.from({length: ROWS}, () => new Array(COLS).fill(0));
-		this.piece = null;
+		this.pieceObj = null;
 		this.clearBoard();
 	}
 
@@ -48,19 +48,19 @@ export default class Board {
 	}
 
 	onKeyDown(e: KeyboardEvent) {
-		if(!(e.code in KeyType)) return;
+		if(!(e.code in KeyType) || !this.pieceObj) return;
 		e.stopPropagation();
 			
 		if(e.code === KeyType.ArrowUp) {
 			this.clearBoard();
-			this.piece.rotateRight();
-			this.piece.draw();
+			this.pieceObj.rotateRight();
+			this.pieceObj.draw();
 		} else if (e.code === KeyType.Space) {
 			// TODO: 조각 수직 이동
 		} else {
 			this.clearBoard();
-			this.piece.move(e.code as KeyType);
-			this.piece.draw();
+			this.pieceObj.move(e.code as KeyType);
+			this.pieceObj.draw();
 		}
 }
 }

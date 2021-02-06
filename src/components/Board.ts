@@ -68,12 +68,15 @@ export default class Board {
 	addPiece() {
 		this.pieceObj = new Piece({
 			context: this.context,
-			isEmpty: this.isEmpty.bind(this),
+			isEmpty: this.isEmptyPosition.bind(this),
 			fixPiece: this.fixPiece.bind(this)
 		});
 		this.timer = 0;
 	}
 
+	isEmptyPosition(p:positionType) {
+		return this.board[p.y][p.x] === 0;
+	}
 
 	fixPiece(shape: number[][], position: positionType) {
 		shape.forEach((line, r) => {

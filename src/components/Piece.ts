@@ -21,9 +21,9 @@ export default class Piece {
 
 	constructor({ context, isEmpty }: pieceType) {
 		this.context = context;
-		const type = getRandomNumber(shapes.length);
-		this.color = colors[type];
-		this.shape = shapes[type];
+		const idx = getRandomNumber(shapes.length);
+		this.color = colors[idx+1];
+		this.shape = shapes[idx];
 		this.position = { x: 3, y: 0 };
 		this.isEmpty = isEmpty;
 		this.draw();

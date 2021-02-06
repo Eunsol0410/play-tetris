@@ -1,18 +1,18 @@
 export const colors = [
-	'crimson', 'orange', 'gold', 'lime', 'teal', 'indigo', 'violet', 'navy'
+	'', 'orange', 'gold', 'lime', 'teal', 'indigo', 'violet', 'navy'
 ];
 
 export const shapes = [
-	[
-		[2, 0, 0], 
-		[2, 2, 2], 
-		[0, 0, 0]
-	],
 	[
 		[0, 0, 0, 0], 
 		[1, 1, 1, 1], 
 		[0, 0, 0, 0], 
 		[0, 0, 0, 0]
+	],
+	[
+		[2, 0, 0], 
+		[2, 2, 2], 
+		[0, 0, 0]
 	],
 	[
 		[0, 0, 3],

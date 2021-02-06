@@ -19,6 +19,8 @@ export default class Board {
 	readonly context: CanvasRenderingContext2D;
 	pieceObj: Piece;
 	board: number[][];
+	timer: number;
+	animationId: number;
 
 	constructor($target: Element) {
 		this.$board = document.createElement('canvas');
@@ -35,7 +37,41 @@ export default class Board {
 	init() {
 		this.board = Array.from({length: ROWS}, () => new Array(COLS).fill(0));
 		this.pieceObj = null;
+		this.timer = 0;
 		this.clearBoard();
+	}
+
+	start() {
+		this.addPiece();
+		this.run();
+	}
+
+	finish() {
+		this.init();
+		cancelAnimationFrame(this.animationId);
+	}
+	
+	run() {
+		this.timer += 1;
+
+		if(this.timer > 200 - this.level*10) {
+		this.clearBoard();
+			this.pieceObj.move(KeyType.ArrowDown);
+			this.pieceObj.draw();
+			this.drawBoard();
+			this.timer = 0;
+		}
+
+		this.animationId = requestAnimationFrame(this.run.bind(this));
+	}
+
+	addPiece() {
+		this.pieceObj = new Piece({
+			context: this.context,
+			isEmpty: this.isEmpty.bind(this),
+			fixPiece: this.fixPiece.bind(this)
+		});
+		this.timer = 0;
 	}
 
 	clearBoard() {

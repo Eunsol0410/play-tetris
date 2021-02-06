@@ -113,7 +113,12 @@ export default class Board {
 			this.pieceObj.rotateRight();
 			this.pieceObj.draw();
 		} else if (e.code === KeyType.Space) {
-			// TODO: 조각 수직 이동
+			while(true) {
+				if(!this.pieceObj.move(KeyType.ArrowDown)) break;
+			}
+			this.clearBoard();
+			this.drawBoard();
+			this.addPiece();
 		} else {
 			this.clearBoard();
 			this.pieceObj.move(e.code as KeyType);

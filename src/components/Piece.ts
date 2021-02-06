@@ -49,8 +49,13 @@ export default class Piece {
 		else if(KEY === KeyType.ArrowRight) next = { ...this.position, x: this.position.x + 1 };
 		else if(KEY === KeyType.ArrowDown) next = { ...this.position, y: this.position.y + 1 };
 		
-		if(next && this.isValid(next, this.shape)) this.position = next;
-		else if(KEY === KeyType.ArrowDown) this.fixPiece(this.shape, this.position);
+		if(next && this.isValid(next, this.shape)) {
+			this.position = next;
+		} else if(KEY === KeyType.ArrowDown) {
+			this.fixPiece(this.shape, this.position);
+			return false;
+		}
+		return true;
 	}
 
 	rotateRight() {

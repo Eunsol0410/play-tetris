@@ -1,8 +1,10 @@
-import Piece from './Piece';
+import { colors } from '../utils/pieces';
 
 const ROWS = 20;
 const COLS = 10;
 const LEN = 32;
+
+const LEN = 30;
 
 export enum KeyType {
 	ArrowLeft = "ArrowLeft",
@@ -40,10 +42,14 @@ export default class Board {
 		this.context.clearRect(0, 0, this.context.canvas.width, this.context.canvas.height);
 	}
 
-	play() {
-		this.piece = new Piece({
-			context: this.context,
-			isEmpty: this.isEmpty.bind(this)
+	drawBoard() {
+		this.board.forEach((line, r) => {
+			line.forEach((type, c) => {
+				if(type > 0) {
+					this.context.fillStyle = colors[type];
+					this.context.fillRect(c, r, 1, 1);
+				}
+			})
 		})
 	}
 
@@ -62,5 +68,7 @@ export default class Board {
 			this.pieceObj.move(e.code as KeyType);
 			this.pieceObj.draw();
 		}
+
+		this.drawBoard();
 }
 }

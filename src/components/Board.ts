@@ -26,13 +26,15 @@ export default class Board {
 	board: number[][];
 	timer: number;
 	animationId: number;
+	clearLine: (line: number) => {};
 
-	constructor($target: Element) {
+	constructor({ $target, level, clearLine }: boardType) {
 		this.$board = document.createElement('canvas');
 		this.$board.className = 'board-container';
 		$target.append(this.$board);
 		document.addEventListener('keydown', this.onKeyDown.bind(this));
 
+		this.clearLine = clearLine;
 		this.context = this.$board.getContext('2d');
 		this.context.scale(LEN, LEN/4);
 
@@ -92,6 +94,25 @@ export default class Board {
 			})
 		})
 		this.addPiece();
+		this.checkClear(); 
+	}
+
+	checkClear() {
+		const nextBoard = Array.from({length: ROWS}, () => new Array(COLS).fill(0));
+		let cnt = 0;
+
+		for(let i=ROWS-1; i>=0; i--) {
+			if(this.board[i].indexOf(0) === -1) {
+				cnt += 1;
+			} else {
+				nextBoard[i + cnt] = this.board[i];
+			}
+		} 
+
+		if(cnt > 0) {
+			this.clearLine(cnt);
+			this.board = nextBoard;
+		}
 	}
 
 	clearBoard() {

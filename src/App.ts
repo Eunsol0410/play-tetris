@@ -27,7 +27,8 @@ export default class App {
 
 		this.boardObj = new Board({
 			$target: this.$app,
-			level: this.level
+			level: this.level,
+			clearLine: this.clearLine.bind(this)
 		});
 
 		this.scoreObj = new Score({
@@ -49,6 +50,18 @@ export default class App {
 		this.lines = 0;
 		this.level = 1;
 	}
+
+	clearLine(line: number) {
+		this.lines += line;
+		this.score += this.level * line;
+		if(this.lines >= 10) {
+			this.lines = 0;
+			this.level += 1;
+		}
+		this.boardObj.setLevel(this.level);
+		this.scoreObj.render({ score: this.score, lines: this.lines, level: this.level });
+	}
+
 	onClick() {
 		this.isPlaying = !this.isPlaying;
 		this.buttonObj.render(this.isPlaying);

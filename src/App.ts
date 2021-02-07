@@ -54,11 +54,9 @@ export default class App {
 		this.buttonObj.render(this.isPlaying);
 		
 		if(this.isPlaying) {
-			// TODO: Board Piece 채워지기 시작
 			this.boardObj.start();
 		} else {
-			// TODO: Board 초기화
-			this.boardObj.init();
+			this.boardObj.finish();
 		}
 	}
 }

@@ -1,9 +1,14 @@
 import { colors } from '../utils/pieces';
+import Piece, { positionType } from './Piece';
 
-const ROWS = 20;
-const COLS = 10;
-const LEN = 32;
+interface boardType {
+	$target: Element;
+	level: number;
+	clearLine: (line: number) => {};
+}
 
+export const ROWS = 20;
+export const COLS = 10;
 const LEN = 30;
 
 export enum KeyType {

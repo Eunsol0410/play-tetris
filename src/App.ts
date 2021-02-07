@@ -58,7 +58,7 @@ export default class App {
 			this.lines = 0;
 			this.level += 1;
 		}
-		this.boardObj.setLevel(this.level);
+		this.boardObj.setSpeed(this.level);
 		this.scoreObj.render({ score: this.score, lines: this.lines, level: this.level });
 	}
 

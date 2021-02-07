@@ -23,17 +23,19 @@ export default class Board {
 	readonly $board: HTMLCanvasElement;
 	readonly context: CanvasRenderingContext2D;
 	pieceObj: Piece;
+	speed: number;
 	board: number[][];
 	timer: number;
 	animationId: number;
 	clearLine: (line: number) => {};
-
+	
 	constructor({ $target, level, clearLine }: boardType) {
 		this.$board = document.createElement('canvas');
 		this.$board.className = 'board-container';
 		$target.append(this.$board);
 		document.addEventListener('keydown', this.onKeyDown.bind(this));
 
+		this.setSpeed(level);
 		this.clearLine = clearLine;
 		this.context = this.$board.getContext('2d');
 		this.context.scale(LEN, LEN/4);
@@ -45,6 +47,10 @@ export default class Board {
 		this.board = Array.from({length: ROWS}, () => new Array(COLS).fill(0));
 		this.pieceObj = null;
 		this.clearBoard();
+	}
+
+	setSpeed(level: number) {
+		this.speed = level > 15 ? 100 : 200 - level*10;
 	}
 
 	start() {
@@ -61,8 +67,8 @@ export default class Board {
 	run() {
 		this.timer += 1;
 
-		if(this.timer > 200 - this.level*10) {
-		this.clearBoard();
+		if(this.timer > this.speed) {
+			this.clearBoard();
 			this.pieceObj.move(KeyType.ArrowDown);
 			this.pieceObj.draw();
 			this.drawBoard();
@@ -134,7 +140,7 @@ export default class Board {
 		if(!(e.code in KeyType) || !this.pieceObj) return;
 		e.stopPropagation();
 		this.clearBoard();
-			
+
 		if(e.code === KeyType.ArrowUp) {
 			this.pieceObj.rotateRight();
 		} else if (e.code === KeyType.Space) {
@@ -147,5 +153,5 @@ export default class Board {
 
 		this.pieceObj.draw();
 		this.drawBoard();
-}
+	}
 }

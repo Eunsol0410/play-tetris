@@ -37,12 +37,12 @@ export default class Board {
 	init() {
 		this.board = Array.from({length: ROWS}, () => new Array(COLS).fill(0));
 		this.pieceObj = null;
-		this.timer = 0;
 		this.clearBoard();
 	}
 
 	start() {
 		this.addPiece();
+		this.pieceObj.draw();
 		this.run();
 	}
 
@@ -107,24 +107,19 @@ export default class Board {
 	onKeyDown(e: KeyboardEvent) {
 		if(!(e.code in KeyType) || !this.pieceObj) return;
 		e.stopPropagation();
+		this.clearBoard();
 			
 		if(e.code === KeyType.ArrowUp) {
-			this.clearBoard();
 			this.pieceObj.rotateRight();
-			this.pieceObj.draw();
 		} else if (e.code === KeyType.Space) {
 			while(true) {
 				if(!this.pieceObj.move(KeyType.ArrowDown)) break;
 			}
-			this.clearBoard();
-			this.drawBoard();
-			this.addPiece();
 		} else {
-			this.clearBoard();
 			this.pieceObj.move(e.code as KeyType);
-			this.pieceObj.draw();
 		}
 
+		this.pieceObj.draw();
 		this.drawBoard();
 }
 }

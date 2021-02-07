@@ -29,7 +29,6 @@ export default class Piece {
 		this.position = { x: 3, y: 0 };
 		this.isEmpty = isEmpty;
 		this.fixPiece = fixPiece;
-		this.draw();
 	}
 	
 	draw() {

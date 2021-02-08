@@ -1,5 +1,6 @@
 import { colors } from '../utils/pieces';
 import { getRandomNumber } from '../utils/utils'; 
+import NextPiece from './NextPiece';
 import Piece, { positionType } from './Piece';
 
 interface boardType {
@@ -33,6 +34,7 @@ export default class Board {
 	clearLine: (line: number) => {};
 	endGame: () => {};
 	nextType : number;
+	nextPieceObj : NextPiece;
 	
 	constructor({ $target, level, clearLine, endGame }: boardType) {
 		this.$board = document.createElement('canvas');
@@ -48,6 +50,7 @@ export default class Board {
 		this.context.canvas.height = ROWS*LEN;
 		this.context.scale(LEN, LEN);
 		this.nextType = getRandomNumber(TYPES);
+		this.nextPieceObj = new NextPiece({ $target });
 
 		this.init();
 	}
@@ -70,6 +73,7 @@ export default class Board {
 
 	finish() {
 		this.init();
+		this.nextPieceObj.erase();
 		cancelAnimationFrame(this.animationId);
 	}
 	
@@ -93,6 +97,8 @@ export default class Board {
 		});
 
 		this.nextType = getRandomNumber(TYPES);
+		this.nextPieceObj.setType(this.nextType);
+		this.nextPieceObj.draw();
 		this.timer = 0;
 	}
 

@@ -33,3 +33,10 @@
 .play-btn:hover {
 	background-color: orange;
 }
+
+.ending-title {
+	position: absolute;
+	top: 40vh;
+	left: calc(10vw + 25px);
+	font-size: 30px;
+}

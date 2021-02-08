@@ -2,6 +2,7 @@ import './styles/main.css';
 import Board from './components/Board';
 import Score from './components/Score';
 import Button from './components/Button';
+import Ending from './components/Ending';
 
 export interface scoreState {
 	score: number;
@@ -14,6 +15,7 @@ export default class App {
 	readonly boardObj: Board;
 	readonly scoreObj: Score;
 	readonly buttonObj: Button;
+	readonly endingObj: Ending;
 	isPlaying: boolean;
 	score: number;
 	lines: number;
@@ -43,6 +45,10 @@ export default class App {
 			onClick: this.onClick.bind(this),
 			isPlaying: this.isPlaying
 		});
+
+		this.endingObj = new Ending({
+			$target: this.$app
+		});
 	}
 
 	init() {
@@ -66,7 +72,7 @@ export default class App {
 	onClick() {
 		this.isPlaying = !this.isPlaying;
 		this.buttonObj.setState(this.isPlaying);
-		this.buttonObj.render(this.isPlaying);
+		this.endingObj.setState(this.isPlaying);
 
 		if(this.isPlaying) {
 			this.boardObj.start();

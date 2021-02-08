@@ -30,7 +30,8 @@ export default class App {
 		this.boardObj = new Board({
 			$target: this.$app,
 			level: this.level,
-			clearLine: this.clearLine.bind(this)
+			clearLine: this.clearLine.bind(this),
+			endGame: this.onClick.bind(this)
 		});
 
 		this.scoreObj = new Score({

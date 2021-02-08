@@ -5,6 +5,7 @@ interface boardType {
 	$target: HTMLElement;
 	level: number;
 	clearLine: (line: number) => {};
+	endGame: () => {};
 }
 
 export const ROWS = 20;
@@ -28,8 +29,9 @@ export default class Board {
 	timer: number;
 	animationId: number;
 	clearLine: (line: number) => {};
+	endGame: () => {};
 	
-	constructor({ $target, level, clearLine }: boardType) {
+	constructor({ $target, level, clearLine, endGame }: boardType) {
 		this.$board = document.createElement('canvas');
 		this.$board.className = 'board-container';
 		$target.append(this.$board);
@@ -37,6 +39,7 @@ export default class Board {
 
 		this.setSpeed(level);
 		this.clearLine = clearLine;
+		this.endGame = endGame;
 		this.context = this.$board.getContext('2d');
 		this.context.scale(LEN, LEN/4);
 
@@ -67,11 +70,8 @@ export default class Board {
 	run() {
 		this.timer += 1;
 
-		if(this.timer > this.speed) {
-			this.clearBoard();
-			this.pieceObj.move(KeyType.ArrowDown);
-			this.pieceObj.draw();
-			this.drawBoard();
+		if (this.timer > this.speed) {
+			this.onKeyDown({ code: KeyType.ArrowDown });
 			this.timer = 0;
 		}
 
@@ -99,8 +99,14 @@ export default class Board {
 				}
 			})
 		})
-		this.addPiece();
-		this.checkClear(); 
+		
+		const isEnd = this.board[0].find(v => v !== 0);
+		if (isEnd) {
+			this.endGame();
+		} else {
+			this.checkClear();
+			this.addPiece();
+		}
 	}
 
 	checkClear() {
@@ -113,7 +119,7 @@ export default class Board {
 			} else {
 				nextBoard[i + cnt] = this.board[i];
 			}
-		} 
+		}
 
 		if(cnt > 0) {
 			this.clearLine(cnt);
@@ -136,22 +142,23 @@ export default class Board {
 		})
 	}
 
-	onKeyDown(e: KeyboardEvent) {
-		if(!(e.code in KeyType) || !this.pieceObj) return;
-		e.stopPropagation();
+	onKeyDown({ code }: { code: KeyType}) {
+		if (!(code in KeyType) || !this.pieceObj) return;
 		this.clearBoard();
 
-		if(e.code === KeyType.ArrowUp) {
+		if (code === KeyType.ArrowUp) {
 			this.pieceObj.rotateRight();
-		} else if (e.code === KeyType.Space) {
+		} else if (code === KeyType.Space) {
 			while(true) {
 				if(!this.pieceObj.move(KeyType.ArrowDown)) break;
 			}
 		} else {
-			this.pieceObj.move(e.code as KeyType);
+			this.pieceObj.move(code as KeyType);
 		}
 
-		this.pieceObj.draw();
-		this.drawBoard();
+		if (this.pieceObj) {
+			this.pieceObj.draw();
+			this.drawBoard();			
+		}
 	}
 }

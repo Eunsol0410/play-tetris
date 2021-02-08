@@ -34,7 +34,15 @@
 
 .ending-title {
 	position: absolute;
-	top: 40vh;
+	top: calc(4vh + 300px);
 	left: calc(10vw + 25px);
 	font-size: 30px;
+}
+
+.nextPiece-container {
+	position: absolute;
+	top: calc(4vh + 180px);
+	left: calc(10vw + 330px);
+	border: 2px solid white;
+	padding: 20px;
 }

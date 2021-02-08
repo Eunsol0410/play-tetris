@@ -72,8 +72,8 @@ export default class App {
 
 	onClick() {
 		this.isPlaying = !this.isPlaying;
-		this.buttonObj.setState(this.isPlaying);
-		this.endingObj.setState(this.isPlaying);
+		this.buttonObj.setIsPlaying(this.isPlaying);
+		this.endingObj.setIsHidden(this.isPlaying);
 
 		if(this.isPlaying) {
 			this.boardObj.start();

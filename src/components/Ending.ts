@@ -16,7 +16,7 @@ export default class Ending {
 		this.render();
 	}
 
-	setState(isPlaying: boolean) {
+	setIsHidden(isPlaying: boolean) {
 		this.isHidden = isPlaying;
 		this.render();
 	}

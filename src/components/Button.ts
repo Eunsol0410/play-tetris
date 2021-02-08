@@ -18,7 +18,7 @@ export default class Button {
 		this.render();
 	}
 
-	setState(isPlaying: boolean) {
+	setIsPlaying(isPlaying: boolean) {
 		this.isPlaying = isPlaying;
 		this.render();
 	}

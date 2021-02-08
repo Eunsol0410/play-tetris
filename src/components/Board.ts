@@ -2,7 +2,7 @@ import { colors } from '../utils/pieces';
 import Piece, { positionType } from './Piece';
 
 interface boardType {
-	$target: Element;
+	$target: HTMLElement;
 	level: number;
 	clearLine: (line: number) => {};
 }

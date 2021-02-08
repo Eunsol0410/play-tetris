@@ -1,10 +1,8 @@
-interface boardType {
-	$target: Element;
+	$target: HTMLElement;
 	onClick: () => {};
 }
 
-export default class Board {
-	readonly $button: Element;
+	readonly $button: HTMLElement;
 
 	constructor({ $target, onClick }: boardType) {
 		this.$button = document.createElement('button');

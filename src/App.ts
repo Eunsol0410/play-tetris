@@ -10,7 +10,7 @@ export interface scoreState {
 }
 
 export default class App {
-	readonly $app: Element;
+	readonly $app: HTMLElement;
 	readonly boardObj: Board;
 	readonly scoreObj: Score;
 	readonly buttonObj: Button;
@@ -19,7 +19,7 @@ export default class App {
 	lines: number;
 	level: number;
 
-	constructor($target: Element) {
+	constructor($target: HTMLElement) {
 		this.$app = document.createElement('div');
 		this.$app.className = 'main';
 		$target.append(this.$app);
@@ -64,8 +64,9 @@ export default class App {
 
 	onClick() {
 		this.isPlaying = !this.isPlaying;
+		this.buttonObj.setState(this.isPlaying);
 		this.buttonObj.render(this.isPlaying);
-		
+
 		if(this.isPlaying) {
 			this.boardObj.start();
 		} else {

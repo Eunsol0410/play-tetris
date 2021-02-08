@@ -1,14 +1,14 @@
 import { scoreState } from '../App';
 
 interface scoreType {
-	$target: Element;
+	$target: HTMLElement;
 	score: number;
 	lines: number;
 	level: number;
 }
 
 export default class Score {
-	readonly $score: Element;
+	readonly $score: HTMLElement;
 	score: number;
 	lines: number;
 	level: number;

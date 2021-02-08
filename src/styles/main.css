@@ -12,8 +12,6 @@
 }
 
 .board-container {
-	width: 320px;
-	height: 640px;
 	border: 2px solid white;
 	margin: 0 30px 0 10vw;
 }

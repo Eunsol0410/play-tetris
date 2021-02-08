@@ -1,4 +1,5 @@
 import { colors } from '../utils/pieces';
+import { getRandomNumber } from '../utils/utils'; 
 import Piece, { positionType } from './Piece';
 
 interface boardType {
@@ -11,6 +12,7 @@ interface boardType {
 export const ROWS = 20;
 export const COLS = 10;
 const LEN = 30;
+const TYPES = 7;
 
 export enum KeyType {
 	ArrowLeft = "ArrowLeft",
@@ -30,6 +32,7 @@ export default class Board {
 	animationId: number;
 	clearLine: (line: number) => {};
 	endGame: () => {};
+	nextType : number;
 	
 	constructor({ $target, level, clearLine, endGame }: boardType) {
 		this.$board = document.createElement('canvas');
@@ -41,7 +44,10 @@ export default class Board {
 		this.clearLine = clearLine;
 		this.endGame = endGame;
 		this.context = this.$board.getContext('2d');
-		this.context.scale(LEN, LEN/4);
+		this.context.canvas.width = COLS*LEN;
+		this.context.canvas.height = ROWS*LEN;
+		this.context.scale(LEN, LEN);
+		this.nextType = getRandomNumber(TYPES);
 
 		this.init();
 	}
@@ -81,9 +87,12 @@ export default class Board {
 	addPiece() {
 		this.pieceObj = new Piece({
 			context: this.context,
+			type: this.nextType,
 			isEmpty: this.isEmptyPosition.bind(this),
 			fixPiece: this.fixPiece.bind(this)
 		});
+
+		this.nextType = getRandomNumber(TYPES);
 		this.timer = 0;
 	}
 

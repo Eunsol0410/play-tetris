@@ -1,9 +1,9 @@
 import { colors, shapes } from '../utils/pieces';
-import { getRandomNumber } from '../utils/utils'; 
 import { KeyType, ROWS, COLS } from './Board';
 
 interface pieceType {
 	context: CanvasRenderingContext2D;
+	type: number;
 	isEmpty: (p:positionType) => boolean;
 	fixPiece: (shape: number[][], position: positionType) => {};
 }
@@ -21,11 +21,10 @@ export default class Piece {
 	isEmpty: (p:positionType) => boolean;
 	fixPiece: (shape: number[][], position: positionType) => {};
 
-	constructor({ context, isEmpty, fixPiece }: pieceType) {
+	constructor({ context, type, isEmpty, fixPiece }: pieceType) {
 		this.context = context;
-		const idx = getRandomNumber(shapes.length);
-		this.color = colors[idx+1];
-		this.shape = shapes[idx];
+		this.color = colors[type+1];
+		this.shape = shapes[type];
 		this.position = { x: 3, y: 0 };
 		this.isEmpty = isEmpty;
 		this.fixPiece = fixPiece;

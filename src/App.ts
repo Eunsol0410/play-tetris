@@ -40,7 +40,8 @@ export default class App {
 		
 		this.buttonObj = new Button({
 			$target: this.$app,
-			onClick: this.onClick.bind(this)
+			onClick: this.onClick.bind(this),
+			isPlaying: this.isPlaying
 		});
 	}
 

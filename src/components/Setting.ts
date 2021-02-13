@@ -7,12 +7,16 @@ interface settingType {
 	$target: HTMLElement;
 	startLevel: number;
 	setStartLevel: (level: number) => void;
+	muted: boolean;
+	setMuted: (muted: boolean) => void;
 }
 
 export default class Setting {
 	readonly $setting: HTMLElement;
 	$close: HTMLElement;
 	$theme: HTMLInputElement;
+	$sound: HTMLInputElement;
+	$audio: HTMLAudioElement;
 	$level: HTMLElement;
 	$levelUp: HTMLElement;
 	$levelDown: HTMLElement;
@@ -21,20 +25,23 @@ export default class Setting {
 	sound: boolean;
 	level: number;
 	setStartLevel: (level: number) => void;
+	setMuted: (muted: boolean) => void;
 
-	constructor({ $target, startLevel, setStartLevel }: settingType) {
+	constructor({ $target, startLevel, setStartLevel, muted, setMuted }: settingType) {
 		this.$setting = document.createElement('div');
 		this.$setting.className = 'setting-container';
 		$target.append(this.$setting);
-
+		
 		this.theme = window.matchMedia("(prefers-color-scheme: dark)").matches 
 			? theme.dark : theme.light;
 		document.documentElement.setAttribute('data-theme', this.theme);
 		
 		this.isOpened = false;
-		this.sound = false;
 		this.level = startLevel;
 		this.setStartLevel = setStartLevel;
+		this.sound = !muted;
+		this.setMuted = setMuted;
+
 		this.render();
 	}
 
@@ -55,6 +62,11 @@ export default class Setting {
 		} else {
 			this.$theme.checked = false;
 		}
+	}
+
+	toggleSound() {
+		this.sound = !this.sound;
+		this.setMuted(!this.sound);
 	}
 
 	setLevel(level: number){
@@ -89,6 +101,9 @@ export default class Setting {
 
 		this.$theme = this.$setting.querySelector('.theme');
 		this.$theme.addEventListener('click', this.toggleTheme.bind(this));
+
+		this.$sound = this.$setting.querySelector('.sound');
+		this.$sound.addEventListener('click', this.toggleSound.bind(this));
 
 		this.$level = this.$setting.querySelector('.level');
 		this.$levelUp = this.$setting.querySelector('.levelUp-btn');

@@ -58,7 +58,9 @@ export default class App {
 		this.settingObj = new Setting({
 			$target: this.$app,
 			startLevel: this.startLevel,
-			setStartLevel: this.setStartLevel.bind(this)
+			setStartLevel: this.setStartLevel.bind(this),
+			muted: this.muted,
+			setMuted: this.setMuted.bind(this)
 		})
 
 		this.soundObj = new Sound({

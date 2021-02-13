@@ -11,6 +11,8 @@ interface settingType {
 
 export default class Setting {
 	readonly $setting: HTMLElement;
+	$close: HTMLElement;
+	$theme: HTMLInputElement;
 	isOpened: boolean;
 	theme: theme;
 	sound: boolean;
@@ -42,6 +44,16 @@ export default class Setting {
 		}
 	}
 
+	toggleTheme() {
+		this.theme = this.theme === theme.dark ? theme.light : theme.dark;
+		document.documentElement.setAttribute('data-theme', this.theme);
+		if(this.theme === theme.dark) {
+			this.$theme.checked = true;
+		} else {
+			this.$theme.checked = false;
+		}
+	}
+
 	render() {
 		const darkChecked = this.theme === theme.dark ? 'checked' : '';
 		const soundChecked = this.sound ? 'checked' : '';
@@ -62,5 +74,11 @@ export default class Setting {
 		`;
 
 		if(!this.isOpened)	this.$setting.style.display = 'none';
+		
+		this.$close = this.$setting.querySelector('.close-btn');
+		this.$close.addEventListener('click', this.toggleIsOpened.bind(this));
+
+		this.$theme = this.$setting.querySelector('.theme');
+		this.$theme.addEventListener('click', this.toggleTheme.bind(this));
 	}
 }

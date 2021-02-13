@@ -44,6 +44,7 @@ export default class App {
 		this.buttonObj = new Button({
 			$target: this.$app,
 			onPlayClick: this.onPlayClick.bind(this),
+			onSettingClick: this.onSettingClick.bind(this),
 			isPlaying: this.isPlaying
 		});
 
@@ -81,6 +82,9 @@ export default class App {
 			this.startGame();
 		}
 		this.endingObj.setIsHidden(this.isPlaying);
+	}
+
+	onSettingClick() {
 	}
 
 	startGame() {

@@ -75,12 +75,30 @@ export default class App {
 	}
 
 	onPlayClick() {
-		this.endingObj.setIsHidden(this.isPlaying);
-
 		if(this.isPlaying) {
-			this.boardObj.start();
+			this.resetGame();
 		} else {
+			this.startGame();
+		}
+		this.endingObj.setIsHidden(this.isPlaying);
+	}
+
+	startGame() {
+		this.isPlaying = true;
+		this.buttonObj.setIsPlaying(this.isPlaying);
+			this.boardObj.start();
+	}
+	
+	resetGame() {
+		this.init();
+		this.sideObj.setState({
+			score: this.score,
+			lines: this.lines,
+			level: this.level,
+		});
+		
+		this.isPlaying = false;
+		this.buttonObj.setIsPlaying(this.isPlaying);
 			this.boardObj.finish();
 		}
 	}
-}

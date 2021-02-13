@@ -13,6 +13,9 @@ export default class Setting {
 	readonly $setting: HTMLElement;
 	$close: HTMLElement;
 	$theme: HTMLInputElement;
+	$level: HTMLElement;
+	$levelUp: HTMLElement;
+	$levelDown: HTMLElement;
 	isOpened: boolean;
 	theme: theme;
 	sound: boolean;
@@ -54,6 +57,12 @@ export default class Setting {
 		}
 	}
 
+	setLevel(level: number){
+		this.level = level <= 0 ? 1 : level;
+		this.setStartLevel(level);
+		this.$level.innerText = this.level.toString();
+	}
+
 	render() {
 		const darkChecked = this.theme === theme.dark ? 'checked' : '';
 		const soundChecked = this.sound ? 'checked' : '';
@@ -80,5 +89,15 @@ export default class Setting {
 
 		this.$theme = this.$setting.querySelector('.theme');
 		this.$theme.addEventListener('click', this.toggleTheme.bind(this));
+
+		this.$level = this.$setting.querySelector('.level');
+		this.$levelUp = this.$setting.querySelector('.levelUp-btn');
+		this.$levelUp.addEventListener('click', () => {
+			this.setLevel(this.level-1);
+		});
+		this.$levelDown = this.$setting.querySelector('.levelDown-btn');
+		this.$levelDown.addEventListener('click', () => {
+			this.setLevel(this.level+1);
+		});
 	}
 }

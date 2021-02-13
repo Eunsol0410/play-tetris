@@ -1,8 +1,20 @@
+[data-theme="light"] * {
+  background-color: white;
+  color: black;
+	border-color: black;
+}
+
 * {
 	font-family: 'Press Start 2P', cursive;
 	box-sizing: border-box;
 	background-color: black;
 	color: white;
+	border-color: white;
+}
+
+body {
+	height: 100vh;
+	margin: 0;
 }
 
 .main {
@@ -12,7 +24,7 @@
 }
 
 .board-container {
-	border: 2px solid white;
+	border: 2px solid;
 	margin: 0 30px 0 10vw;
 }
 
@@ -41,8 +53,8 @@
 
 .ending-title {
 	position: absolute;
-	top: calc(4vh + 300px);
-	left: calc(10vw + 25px);
+	top: calc(4vh + 250px);
+	left: calc(10vw + 20px);
 	font-size: 30px;
 }
 
@@ -50,6 +62,6 @@
 	position: absolute;
 	top: calc(4vh + 180px);
 	left: calc(10vw + 330px);
-	border: 2px solid white;
+	border: 2px solid;
 	padding: 20px;
 }

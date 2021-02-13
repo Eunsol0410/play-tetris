@@ -4,6 +4,7 @@ import Side from './components/Side';
 import Button from './components/Button';
 import Ending from './components/Ending';
 import Setting from './components/Setting';
+import Sound from './components/Sound';
 
 export default class App {
 	readonly $app: HTMLElement;
@@ -12,11 +13,13 @@ export default class App {
 	readonly buttonObj: Button;
 	readonly endingObj: Ending;
 	readonly settingObj: Setting;
+	readonly soundObj: Sound;
 	isPlaying: boolean;
 	score: number;
 	lines: number;
 	level: number;
 	startLevel: number;
+	muted: boolean;
 
 	constructor($target: HTMLElement) {
 		this.$app = document.createElement('div');
@@ -24,6 +27,7 @@ export default class App {
 		$target.append(this.$app);
 
 		this.startLevel = 1;
+		this.muted = true;
 		this.init();
 
 		this.boardObj = new Board({
@@ -56,6 +60,11 @@ export default class App {
 			startLevel: this.startLevel,
 			setStartLevel: this.setStartLevel.bind(this)
 		})
+
+		this.soundObj = new Sound({
+			$target: this.$app,
+			muted: this.muted
+		});
 	}
 
 	init() {
@@ -68,6 +77,11 @@ export default class App {
 	setStartLevel(level: number) {
 		this.startLevel = level;
 		this.resetGame();
+	}
+
+	setMuted(muted: boolean) {
+		this.muted = muted;
+		this.soundObj.setMuted(muted);
 	}
 
 	clearLine(line: number) {
@@ -102,6 +116,7 @@ export default class App {
 		this.isPlaying = true;
 		this.buttonObj.setIsPlaying(this.isPlaying);
 		this.boardObj.start();
+		this.soundObj.play();
 	}
 	
 	resetGame() {
@@ -115,5 +130,6 @@ export default class App {
 		this.isPlaying = false;
 		this.buttonObj.setIsPlaying(this.isPlaying);
 		this.boardObj.finish();
+		this.soundObj.stop();
 	}
 }

@@ -8,7 +8,7 @@
 	font-family: 'Press Start 2P', cursive;
 	box-sizing: border-box;
 	background-color: black;
-	color: white;
+  color: white;
 	border-color: white;
 }
 
@@ -64,4 +64,45 @@ body {
 	left: calc(10vw + 330px);
 	border: 2px solid;
 	padding: 20px;
+}
+
+.setting-container {
+	position: fixed;
+	display: flex;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: cadetblue;
+}
+
+.setting {
+	position: relative;
+	display: grid;
+	grid-template-columns: 2fr 1fr;
+	row-gap: 10px;
+	margin: auto;
+	padding: 30px 20px;
+	width: 380px;
+	border: 4px solid;
+}
+
+.close-btn {
+	position: absolute;
+	right: 10px;
+	top: 10px;
+}
+
+.setting button:hover {
+	cursor: pointer;
+	background-color: orange;
+}
+
+.setting p {
+	margin: 0;
+}
+
+.level-container {
+	display: flex;
+	justify-content: space-between;
 }

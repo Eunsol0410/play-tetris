@@ -3,12 +3,7 @@ import Board from './components/Board';
 import Side from './components/Side';
 import Button from './components/Button';
 import Ending from './components/Ending';
-
-export interface scoreState {
-	score: number;
-	lines: number;
-	level: number,
-}
+import Setting from './components/Setting';
 
 export default class App {
 	readonly $app: HTMLElement;
@@ -16,15 +11,19 @@ export default class App {
 	readonly sideObj: Side;
 	readonly buttonObj: Button;
 	readonly endingObj: Ending;
+	readonly settingObj: Setting;
 	isPlaying: boolean;
 	score: number;
 	lines: number;
 	level: number;
+	startLevel: number;
 
 	constructor($target: HTMLElement) {
 		this.$app = document.createElement('div');
 		this.$app.className = 'main';
 		$target.append(this.$app);
+
+		this.startLevel = 1;
 		this.init();
 
 		this.boardObj = new Board({
@@ -33,7 +32,7 @@ export default class App {
 			clearLine: this.clearLine.bind(this),
 			endGame: this.onPlayClick.bind(this)
 		});
-
+		
 		this.sideObj = new Side({
 			$target: this.$app,
 			score: this.score,
@@ -51,13 +50,24 @@ export default class App {
 		this.endingObj = new Ending({
 			$target: this.$app
 		});
+
+		this.settingObj = new Setting({
+			$target: this.$app,
+			startLevel: this.startLevel,
+			setStartLevel: this.setStartLevel.bind(this)
+		})
 	}
 
 	init() {
 		this.isPlaying = false;
 		this.score = 0;
 		this.lines = 0;
-		this.level = 1;
+		this.level = this.startLevel;
+	}
+
+	setStartLevel(level: number) {
+		this.startLevel = level;
+		this.resetGame();
 	}
 
 	clearLine(line: number) {
@@ -83,14 +93,15 @@ export default class App {
 		}
 		this.endingObj.setIsHidden(this.isPlaying);
 	}
-
+	
 	onSettingClick() {
+		this.settingObj.toggleIsOpened();
 	}
 
 	startGame() {
 		this.isPlaying = true;
 		this.buttonObj.setIsPlaying(this.isPlaying);
-			this.boardObj.start();
+		this.boardObj.start();
 	}
 	
 	resetGame() {
@@ -103,6 +114,6 @@ export default class App {
 		
 		this.isPlaying = false;
 		this.buttonObj.setIsPlaying(this.isPlaying);
-			this.boardObj.finish();
-		}
+		this.boardObj.finish();
 	}
+}

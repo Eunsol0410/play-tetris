@@ -1,30 +1,41 @@
 interface buttonType {
 	$target: HTMLElement;
-	onClick: () => {};
+	onPlayClick: () => {};
 	isPlaying: boolean;
+}
+
+enum playing {
+	on = 'Finish',
+	off = 'Play'
 }
 
 export default class Button {
 	readonly $button: HTMLElement;
+	$playBtn: HTMLElement;
 	isPlaying: boolean;
+	onPlayClick : () => void;
 
-	constructor({ $target, onClick, isPlaying }: buttonType) {
-		this.$button = document.createElement('button');
-		this.$button.className = 'play-btn';
+	constructor({ $target, isPlaying, onPlayClick }: buttonType) {
+		this.$button = document.createElement('div');
+		this.$button.className = 'btn-container';
 		$target.append(this.$button);
 
 		this.isPlaying = isPlaying;
-		this.$button.addEventListener('click', onClick);
+		this.onPlayClick = onPlayClick;
 		this.render();
 	}
 
 	setIsPlaying(isPlaying: boolean) {
 		this.isPlaying = isPlaying;
-		this.render();
+		if(this.isPlaying) this.$playBtn.innerHTML = playing.on;
+		else this.$playBtn.innerHTML = playing.off;
 	}
 
 	render() {
-		if(this.isPlaying) this.$button.innerHTML = 'Finish';
-		else this.$button.innerHTML = 'Play';
+		this.$button.innerHTML = `
+			<button class="play-btn">${this.isPlaying ? playing.on : playing.off}</button>
+		`
+		this.$playBtn = this.$button.querySelector('.play-btn');
+		this.$playBtn.addEventListener('click', this.onPlayClick);
 	}
 }

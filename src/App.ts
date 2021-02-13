@@ -31,7 +31,7 @@ export default class App {
 			$target: this.$app,
 			level: this.level,
 			clearLine: this.clearLine.bind(this),
-			endGame: this.onClick.bind(this)
+			endGame: this.onPlayClick.bind(this)
 		});
 
 		this.sideObj = new Side({
@@ -43,7 +43,7 @@ export default class App {
 		
 		this.buttonObj = new Button({
 			$target: this.$app,
-			onClick: this.onClick.bind(this),
+			onPlayClick: this.onPlayClick.bind(this),
 			isPlaying: this.isPlaying
 		});
 
@@ -74,9 +74,7 @@ export default class App {
 		});
 	}
 
-	onClick() {
-		this.isPlaying = !this.isPlaying;
-		this.buttonObj.setIsPlaying(this.isPlaying);
+	onPlayClick() {
 		this.endingObj.setIsHidden(this.isPlaying);
 
 		if(this.isPlaying) {

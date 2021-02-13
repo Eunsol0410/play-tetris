@@ -1,6 +1,6 @@
 import './styles/main.css';
 import Board from './components/Board';
-import Score from './components/Score';
+import Side from './components/Side';
 import Button from './components/Button';
 import Ending from './components/Ending';
 
@@ -13,7 +13,7 @@ export interface scoreState {
 export default class App {
 	readonly $app: HTMLElement;
 	readonly boardObj: Board;
-	readonly scoreObj: Score;
+	readonly sideObj: Side;
 	readonly buttonObj: Button;
 	readonly endingObj: Ending;
 	isPlaying: boolean;
@@ -34,7 +34,7 @@ export default class App {
 			endGame: this.onClick.bind(this)
 		});
 
-		this.scoreObj = new Score({
+		this.sideObj = new Side({
 			$target: this.$app,
 			score: this.score,
 			lines: this.lines,
@@ -67,7 +67,11 @@ export default class App {
 			this.level += 1;
 		}
 		this.boardObj.setSpeed(this.level);
-		this.scoreObj.render({ score: this.score, lines: this.lines, level: this.level });
+		this.sideObj.setState({
+			score: this.score,
+			lines: this.lines,
+			level: this.level,
+		});
 	}
 
 	onClick() {

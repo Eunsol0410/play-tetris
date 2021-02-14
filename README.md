@@ -31,3 +31,4 @@
 
 
 ## 프로젝트 구현 결과
+![tetris](https://user-images.githubusercontent.com/41146374/107871821-586df000-6ee8-11eb-9f10-70585154ac4d.gif)

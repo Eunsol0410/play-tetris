@@ -6,9 +6,7 @@
 
 - 간단한 게임 개발을 경험하고, 캔버스를 사용한 그래픽 표현 방법을 학습
 
-- 이 프로젝트는 [Learning Modern JavaScript with Tetris]: https://michael-karen.medium.com/learning-modern-javascript-with-tetris-92d532bcd057
-
-  를 일부 참고하고 있으나, 컴포넌트 단위로 UI 및 기능을 구분함
+- 이 프로젝트의 요구사항은 [Learning Modern JavaScript with Tetris](https://michael-karen.medium.com/learning-modern-javascript-with-tetris-92d532bcd057) 블로그를 참고하였음
 
 
 ## 기능 요구사항

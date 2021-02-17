@@ -18,8 +18,8 @@ export default class Piece {
 	color: string; 
 	shape: number[][]; 
 	position: positionType;
-	isEmpty: (p:positionType) => boolean;
-	fixPiece: (shape: number[][], position: positionType) => {};
+	readonly isEmpty: (p:positionType) => boolean;
+	readonly fixPiece: (shape: number[][], position: positionType) => {};
 
 	constructor({ context, type, isEmpty, fixPiece }: pieceType) {
 		this.context = context;

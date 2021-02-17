@@ -15,8 +15,8 @@ export default class Button {
 	$settingBtn: HTMLElement;
 	$playBtn: HTMLElement;
 	isPlaying: boolean;
-	onSettingClick: () => void;
-	onPlayClick : () => void;
+	readonly onSettingClick: () => void;
+	readonly onPlayClick : () => void;
 
 	constructor({ $target, isPlaying, onSettingClick, onPlayClick }: buttonType) {
 		this.$button = document.createElement('div');

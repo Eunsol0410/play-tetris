@@ -24,8 +24,8 @@ export default class Setting {
 	theme: theme;
 	sound: boolean;
 	level: number;
-	setStartLevel: (level: number) => void;
-	setMuted: (muted: boolean) => void;
+	readonly setStartLevel: (level: number) => void;
+	readonly setMuted: (muted: boolean) => void;
 
 	constructor({ $target, startLevel, setStartLevel, muted, setMuted }: settingType) {
 		this.$setting = document.createElement('div');

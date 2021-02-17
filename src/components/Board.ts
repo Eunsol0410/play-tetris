@@ -31,8 +31,8 @@ export default class Board {
 	board: number[][];
 	timer: number;
 	animationId: number;
-	clearLine: (line: number) => {};
-	endGame: () => {};
+	readonly clearLine: (line: number) => {};
+	readonly endGame: () => {};
 	nextType : number;
 	nextPieceObj : NextPiece;
 	

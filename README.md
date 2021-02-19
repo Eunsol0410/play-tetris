@@ -1,6 +1,16 @@
 # Play Tetris
 
+## 프로젝트 소개
+
+- Vanilla TypeScript 기반 고전 게임인 테트리스를 개발
+
+- 간단한 게임 개발을 경험하고, 캔버스를 사용한 그래픽 표현 방법을 학습
+
+- 이 프로젝트의 요구사항은 [Learning Modern JavaScript with Tetris](https://michael-karen.medium.com/learning-modern-javascript-with-tetris-92d532bcd057) 블로그를 참고하였음
+
+
 ## 기능 요구사항
+
 - 키보드 입력에 따라 동작을 구분한다.
   - LEFT, RIGHT, DOWN : 해당 방향으로 떨어지는 조각이 움직인다.
   - SPACE : 조각이 아래로 움직일 수 없을 때까지 수직으로 떨어진다.
@@ -15,3 +25,8 @@
 - 게임 세팅은 시작 레벨, 배경음악 재생여부, 다크모드를 선택할 수 있다.
 - 다크모드는 시스템 세팅을 기준으로 기본 값을 설정한다.
 - 게임이 진행 중에 레벨을 설정하면 이전 게임은 종료된다. 
+
+
+
+## 프로젝트 구현 결과
+![tetris](https://user-images.githubusercontent.com/41146374/107871821-586df000-6ee8-11eb-9f10-70585154ac4d.gif)

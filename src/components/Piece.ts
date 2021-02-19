@@ -37,6 +37,9 @@ export default class Piece {
 		this.shape.forEach((line, r) => {
 			line.forEach((type, c) => {
 				if(type > 0) {
+					this.context.globalAlpha = 0.3;
+					this.context.fillRect(this.expectedPosition.x + c, this.expectedPosition.y + r, 1, 1);
+					this.context.globalAlpha = 1;
 					this.context.fillRect(this.position.x + c, this.position.y + r, 1, 1);
 				}
 			})
@@ -57,6 +60,11 @@ export default class Piece {
 		} else if(KEY === KeyType.ArrowDown) {
 			this.fixPiece(this.shape, this.position);
 		}
+	}
+
+	moveStraight() {
+		this.position = { ...this.expectedPosition };
+		this.fixPiece(this.shape, this.position);
 	}
 
 	setExpectedPosition() {

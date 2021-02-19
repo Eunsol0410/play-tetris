@@ -164,9 +164,7 @@ export default class Board {
 		if (code === KeyType.ArrowUp) {
 			this.pieceObj.rotateRight();
 		} else if (code === KeyType.Space) {
-			while(true) {
-				if(!this.pieceObj.move(KeyType.ArrowDown)) break;
-			}
+			this.pieceObj.moveStraight();
 		} else {
 			this.pieceObj.move(code as KeyType);
 		}

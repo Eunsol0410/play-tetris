@@ -18,6 +18,7 @@ export default class Piece {
 	color: string; 
 	shape: number[][]; 
 	position: positionType;
+	expectedPosition: positionType;
 	readonly isEmpty: (p:positionType) => boolean;
 	readonly fixPiece: (shape: number[][], position: positionType) => {};
 
@@ -28,6 +29,7 @@ export default class Piece {
 		this.position = { x: 3, y: 0 };
 		this.isEmpty = isEmpty;
 		this.fixPiece = fixPiece;
+		this.setExpectedPosition();
 	}
 	
 	draw() {
@@ -49,11 +51,24 @@ export default class Piece {
 		
 		if(next && this.isValid(next, this.shape)) {
 			this.position = next;
+			if(KEY === KeyType.ArrowLeft || KEY === KeyType.ArrowRight) {
+				this.setExpectedPosition();
+			}
 		} else if(KEY === KeyType.ArrowDown) {
 			this.fixPiece(this.shape, this.position);
-			return false;
 		}
-		return true;
+	}
+
+	setExpectedPosition() {
+		const next = { ...this.position };
+		while(true) {
+			next.y += 1;
+			if(!this.isValid(next, this.shape)) {
+				next.y -= 1;
+				break;
+			}
+		}
+		this.expectedPosition = next;
 	}
 
 	rotateRight() {
@@ -65,7 +80,10 @@ export default class Piece {
 			}
 		}
 
-		if(this.isValid(this.position, next)) this.shape = next;
+		if(this.isValid(this.position, next)) {
+			this.shape = next;
+			this.setExpectedPosition();
+		}
 	}
 
 	isValid(position: positionType, shape: number[][]) {
